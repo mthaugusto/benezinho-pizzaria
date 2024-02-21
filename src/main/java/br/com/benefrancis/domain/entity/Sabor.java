@@ -8,11 +8,9 @@ public class Sabor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_SABOR")
-    @SequenceGenerator( name = "SQ_SABOR", sequenceName = "SQ_SABOR", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "SQ_SABOR", sequenceName = "SQ_SABOR", initialValue = 1, allocationSize = 1)
     private Long id;
-
     private String nome;
-
     private String descricao;
 
     public Sabor(){
