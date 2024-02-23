@@ -16,14 +16,15 @@ import java.math.BigDecimal;
 public class Opcional {
 
     @Id // indicando a chave primária depois de colocar o @Entity na entidade
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_OPCIONAL") // strategy = sequência dos valores | generator = nome que a sequência vai ter
-    @SequenceGenerator(name="SQ_OPCIONAL", sequenceName = "SQ_OPCIONAL")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_OPCIONAL") // strategy = sequência dos valores |
+                                                                                   // generator = nome que a sequência
+                                                                                   // vai ter
+    @SequenceGenerator(name = "SQ_OPCIONAL", sequenceName = "SQ_OPCIONAL")
+    @Column(name = "ID_OPCIONAL")
     private Long id;
 
     private String nome;
 
     private Double preco;
-
-
 
 }
