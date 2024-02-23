@@ -37,7 +37,6 @@ public class Main {
         var frangoComCatupiri = new Sabor(null, "Frango com Catupiri",
                 "O verdadeiro sabor do Catupiri Original faz toda a diferença nesta pizza");
 
-        Pizzaria pizzaria = new Pizzaria(null, "Dominus");
 
         // var pizzaDeManjericao = new Produto( null, "Pizza", BigDecimal.valueOf( 59.99
         // ), manjericao );
@@ -83,6 +82,16 @@ public class Main {
                 .opcionais(opcionaisDaSegundaPizza)
                 .build();
 
+        var cardapio = new LinkedHashSet<Produto>(); // Perguntar pro professoror na aula presencial a diferença desse estilo para o estilo que usamos o Set dos opcionais aqui em cima
+
+        cardapio.add(pizzaDeFrangoComCatupiri);
+        cardapio.add(pizzaDeManjericao);
+
+        Pizzaria dominus = Pizzaria.builder().nome("Dominus").cardapio(cardapio).build();
+        Pizzaria nona = Pizzaria.builder().nome("Nona").cardapio(cardapio).build();
+
+        dominus.setCardapio(cardapio);
+
         manager.getTransaction().begin();
 
         // Como nós usamos a anotação do CASCADE e tem relacionamento entre todos os
@@ -95,12 +104,13 @@ public class Main {
         // manager.persist(bordaPaozinho);
         // manager.persist(cocaCola);
 
-        manager.persist(pizzaria);
+        manager.persist(dominus);
         manager.persist(pizzaDeManjericao);
         manager.persist(pizzaDeFrangoComCatupiri);
         manager.getTransaction().commit();
 
-        System.out.println("PIZZARIA: " + pizzaria);
+        System.out.println("PIZZARIA: " + dominus); 
+        System.out.println("PIZZARIA: " + nona); 
         System.out.println("SABOR: " + manjericao);
         System.out.println("PIZZA:  " + pizzaDeManjericao);
         System.out.println("PIZZA:  " + pizzaDeManjericao);

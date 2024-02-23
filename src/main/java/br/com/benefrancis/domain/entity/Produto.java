@@ -43,21 +43,16 @@ public class Produto {
     @JoinColumn(name = "SABOR", referencedColumnName = "ID_SABOR", foreignKey = @ForeignKey(name = "FK_PRODUTO_SABOR"))
     private Sabor sabor;
 
-    // sempre que existe uma relação many to many, preciso criar uma tabela
-    // associativa, ai usamos o join table
+    // sempre que existe uma relação many to many, precisamos usar o jointable para criar a tabela associativa
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE,
             CascadeType.PERSIST })
     @JoinTable(name = "TB_OPCIONAL_PRODUTO", joinColumns = {
-            @JoinColumn(name = "PRODUTO", referencedColumnName = "ID_PRODUTO", foreignKey = @ForeignKey(name = "FK_PRODUTO_OPCIONAL")), // o
-                                                                                                                                        // primeiro
-                                                                                                                                        // é
-                                                                                                                                        // o
-    // nome da classe que estamos
+            @JoinColumn(name = "PRODUTO", referencedColumnName = "ID_PRODUTO", foreignKey = @ForeignKey(name = "FK_PRODUTO_OPCIONAL")), // o primeiro é o nome da classe que estamos
+
     }, inverseJoinColumns = {
             @JoinColumn(name = "OPCIONAL", referencedColumnName = "ID_OPCIONAL", foreignKey = @ForeignKey(name = "FK_OPCIONAL_PRODUTO")) // a
                                                                                                                                          // outra
     })
-    private Set<Opcional> opcionais = new LinkedHashSet<>(); // professor prefere usar set do que list | linked hashed
-                                                             // set não permite repetição (ex, varias coca colas, varias
-                                                             // bordas)
+    private Set<Opcional> opcionais = new LinkedHashSet<>(); // professor prefere usar set do que list | linked hashed set não permite repetição (ex, varias coca colas, varias bordas)
+
 }
