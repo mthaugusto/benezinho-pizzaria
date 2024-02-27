@@ -57,12 +57,8 @@ public class Main {
         factory.close();
     }
 
-    private static Pizzaria getPizzaria(Long id, EntityManager manager) {
-        Pizzaria pizzaria = manager.find(Pizzaria.class, id);// pesquisa pelo ID da pizzaria
-        return pizzaria;
-    }
+    /* selecionou o trecho de código abaixo e deu ALT + SHIFT + M e colocou dentro do método persistir */
 
-    /* selecionou todo o trecho de código abaixo e deu ALT + SHIFT + M e colocou dentro do método persistir */
     private static void persistir(EntityManager manager) {
         var manjericao = new Sabor(null, "Manjericao",
                 "Deliciosa pizza de manjericão que fora plantado pelos mais renomados agricultores do Brasil");
@@ -130,5 +126,10 @@ public class Main {
         System.out.println("SABOR: " + manjericao);
         System.out.println("PIZZA:  " + pizzaDeManjericao);
         System.out.println("PIZZA:  " + pizzaDeManjericao);
+    }
+
+    private static Pizzaria getPizzaria(Long id, EntityManager manager) {
+        Pizzaria pizzaria = manager.find(Pizzaria.class, id);// pesquisa pelo ID da pizzaria
+        return pizzaria;
     }
 }
