@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import br.com.benefrancis.domain.entity.Opcional;
@@ -13,6 +14,8 @@ import br.com.benefrancis.domain.entity.Sabor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
+import javax.swing.*;
 
 public class Main {
 
@@ -32,18 +35,40 @@ public class Main {
         // );
         // EntityManager manager = factory.createEntityManager();
 
+        // Como nós usamos a anotação do CASCADE e tem relacionamento entre todos os
+        // objetos da pizza, eu posso ignorar a persistencia de cada item e deixar
+        // apenas a das pizzas, pois com a anotação ele salva tudo
+
+//         persistir(manager);
+
+//        Long id = Long.valueOf(JOptionPane.showInputDialog("Informe o id da Pizzaria"));
+//        Pizzaria pizzaria = getPizzaria(id, manager);
+//
+//        System.out.println(pizzaria);
+
+        // Consultando todas as pizzarias usando JPQL
+
+        // var jpql = "From Pizzaria";
+        var jpql = "From Pizzaria";
+
+        manager.createQuery(jpql).getResultList().forEach(System.out::println);
+
+        manager.close();
+        factory.close();
+    }
+
+    private static Pizzaria getPizzaria(Long id, EntityManager manager) {
+        Pizzaria pizzaria = manager.find(Pizzaria.class, id);// pesquisa pelo ID da pizzaria
+        return pizzaria;
+    }
+
+    /* selecionou todo o trecho de código abaixo e deu ALT + SHIFT + M e colocou dentro do método persistir */
+    private static void persistir(EntityManager manager) {
         var manjericao = new Sabor(null, "Manjericao",
                 "Deliciosa pizza de manjericão que fora plantado pelos mais renomados agricultores do Brasil");
         var frangoComCatupiri = new Sabor(null, "Frango com Catupiri",
                 "O verdadeiro sabor do Catupiri Original faz toda a diferença nesta pizza");
 
-
-        // var pizzaDeManjericao = new Produto( null, "Pizza", BigDecimal.valueOf( 59.99
-        // ), manjericao );
-        // var pizzaDeFrangoComCatupiri = new Produto( null, "Pizza",
-        // BigDecimal.valueOf( 79.99 ), frangoComCatupiri );
-
-        // criando os opcionais
 
         var bordaDeCatupiri = Opcional.builder()
                 .nome("Borda de Catupiri")
@@ -82,7 +107,7 @@ public class Main {
                 .opcionais(opcionaisDaSegundaPizza)
                 .build();
 
-        var cardapio = new LinkedHashSet<Produto>(); // Perguntar pro professoror na aula presencial a diferença desse estilo para o estilo que usamos o Set dos opcionais aqui em cima
+        var cardapio = new LinkedHashSet<Produto>();
 
         cardapio.add(pizzaDeFrangoComCatupiri);
         cardapio.add(pizzaDeManjericao);
@@ -94,28 +119,16 @@ public class Main {
 
         manager.getTransaction().begin();
 
-        // Como nós usamos a anotação do CASCADE e tem relacionamento entre todos os
-        // objetos da pizza, eu posso ignorar a persistencia de cada item e deixar
-        // apenas a das pizzas, pois com a anotação ele salva tudo
-        // manager.persist(manjericao);
-        // manager.persist(frangoComCatupiri);
-
-        // manager.persist(bordaDeCatupiri);
-        // manager.persist(bordaPaozinho);
-        // manager.persist(cocaCola);
 
         manager.persist(dominus);
         manager.persist(pizzaDeManjericao);
         manager.persist(pizzaDeFrangoComCatupiri);
         manager.getTransaction().commit();
 
-        System.out.println("PIZZARIA: " + dominus); 
-        System.out.println("PIZZARIA: " + nona); 
+        System.out.println("PIZZARIA: " + dominus);
+        System.out.println("PIZZARIA: " + nona);
         System.out.println("SABOR: " + manjericao);
         System.out.println("PIZZA:  " + pizzaDeManjericao);
         System.out.println("PIZZA:  " + pizzaDeManjericao);
-
-        manager.close();
-        factory.close();
     }
 }

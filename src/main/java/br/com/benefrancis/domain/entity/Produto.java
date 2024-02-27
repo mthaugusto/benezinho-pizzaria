@@ -20,10 +20,17 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_PRODUTO")
-    @SequenceGenerator(name = "SQ_PRODUTO", sequenceName = "SQ_PRODUTO", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(
+            name = "SQ_PRODUTO",
+            sequenceName = "SQ_PRODUTO",
+            initialValue = 1,
+            allocationSize = 1)
     @Column(name = "ID_PRODUTO")
     private Long id;
+
+    @Column(name = "NM_PRODUTO")
     private String nome;
+
     private BigDecimal preco;
 
     // Gang dos Manys: Nunca andam só. Por este motivo eu tenho que colocar uma
